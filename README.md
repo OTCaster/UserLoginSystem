@@ -216,7 +216,7 @@ Contributions are welcome! Please follow these steps:
 2. **Clone Your Fork**:
 
    ```bash
-   git clone https://github.com/yourusername/UserLoginSystem.git
+   git clone https://github.com/OTCaster/UserLoginSystem.git
    ```
 
 3. **Create a New Branch**:
@@ -252,6 +252,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-**Author**: [Your Name](mailto:your.email@example.com)
+**Author**: [Your Name](mailto:electroboiofficial@gmail.com)
 
 Feel free to reach out with any questions or suggestions!
