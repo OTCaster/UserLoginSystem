@@ -252,6 +252,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-**Author**: [Your Name](mailto:electroboiofficial@gmail.com)
+**Author**: [Original TypeCaster](mailto:electroboiofficial@gmail.com)
 
 Feel free to reach out with any questions or suggestions!
