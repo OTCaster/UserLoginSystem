@@ -10,11 +10,17 @@ void register_user() {
     printf("Enter new username: ");
     get_string_input(username, sizeof(username));
 
+    // Check if username already exists
+    if (username_exists(username)) {
+        printf("Username already taken. Please choose a different one.\n");
+        return;
+    }
+
     printf("Enter new password: ");
     get_string_input(password, sizeof(password));
 
     // Hash the password
-    char hashed_password[65]; // Assuming SHA-256 hash
+    char hashed_password[65]; // Buffer to store the custom hashed password string
     hash_password(password, hashed_password);
 
     // Store credentials

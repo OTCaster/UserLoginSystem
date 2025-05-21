@@ -1,7 +1,49 @@
 #include <stdio.h>
 #include <string.h>
 #include "auth.h"
-#include "utils.h"
+#include "utils.h" // Ensure this is included if get_string_input is used, or remove if not.
+// utils.h is included for get_string_input, which is not used in this specific snippet but is in the original file.
+// For username_exists, we might need MAX_USERNAME_LENGTH, typically defined in user.h or a config file.
+// For now, let's assume a reasonable max length or define it locally if not available globally.
+// #include "../include/user.h" // If MAX_USERNAME_LENGTH is defined there.
+
+#define MAX_LINE_LENGTH 256 // Max length for a line in credentials file
+#define CREDENTIALS_FILE "data/credentials.txt" // Path to credentials file
+// Define MAX_USERNAME_LENGTH if not available from includes.
+// This should ideally be consistent with username array sizes elsewhere.
+#ifndef MAX_USERNAME_LENGTH
+#define MAX_USERNAME_LENGTH 50
+#endif
+
+// Function to check if a username already exists
+int username_exists(const char *username) {
+    FILE *file = fopen(CREDENTIALS_FILE, "r");
+    if (file == NULL) {
+        perror("Error opening credentials file for username check");
+        return 0; // Cannot confirm, assume not exists or handle error appropriately
+    }
+
+    char line[MAX_LINE_LENGTH];
+    while (fgets(line, sizeof(line), file)) {
+        char stored_username[MAX_USERNAME_LENGTH];
+        // Extract username from "username,hashed_password"
+        char *comma = strchr(line, ',');
+        if (comma != NULL) {
+            int len = comma - line;
+            if (len < MAX_USERNAME_LENGTH) {
+                strncpy(stored_username, line, len);
+                stored_username[len] = '\0';
+                if (strcmp(stored_username, username) == 0) {
+                    fclose(file);
+                    return 1; // Username found
+                }
+            }
+        }
+    }
+
+    fclose(file);
+    return 0; // Username not found
+}
 
 void login_user() {
     char username[50];
@@ -65,5 +107,5 @@ void hash_password(const char *password, char *hashed_output) {
     while ((c = *password++))
         hash = ((hash << 5) + hash) + c;
 
-    sprintf(hashed_output, "%lu", hash);
+    snprintf(hashed_output, 65, "%lu", hash); // Use snprintf for safer string formatting
 }
